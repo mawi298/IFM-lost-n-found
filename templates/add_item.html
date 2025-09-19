@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Add Item - IFM Lost & Found{% endblock %}
+
+{% block content %}
+<div class="main-content-margin">
+  <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7 text-center" style="margin-top: 2.5rem; margin-bottom: 1.5rem;">
+          <h2 class="fw-bold text-primary mb-2">Select Item Type</h2>
+      <p class="mb-4 text-muted">Select the type of item you want to report:</p>
+    <div class="d-flex flex-wrap justify-content-center gap-5">
+        <a href="{{ url_for('add_lost') }}" class="btn btn-primary btn-lg px-4 rounded-pill shadow-sm">Lost Item</a>
+        <a href="{{ url_for('add_found') }}" class="btn btn-outline-primary btn-lg px-4 rounded-pill shadow-sm">Found Item</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

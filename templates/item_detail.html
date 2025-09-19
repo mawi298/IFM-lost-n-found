@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Item Details - IFM Lost & Found{% endblock %}
+{% block content %}
+<div class="main-content-margin">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        <div class="card shadow-sm border-0 rounded-4">
+          {% if item.image_filename %}
+          <img src="{{ url_for('static', filename='uploads/' ~ item.image_filename) }}" alt="Item Photo" class="card-img-top rounded-top mb-3" style="max-height:350px; object-fit:cover;">
+          {% endif %}
+          <div class="card-body p-4">
+            <h2 class="fw-bold text-primary mb-3">{{ item.title }}</h2>
+            <p class="mb-3 text-muted">{{ item.description }}</p>
+            <div class="mb-2"><strong>Contact:</strong> {{ item.contact }}</div>
+            <div class="mb-2"><strong>Location:</strong> {{ item.location }}</div>
+            <div class="mb-2"><strong>Date:</strong> {{ item.date_lost_found }}</div>
+            <span class="badge px-3 py-2 rounded-pill bg-{{ 'danger' if item.item_type == 'lost' else 'success' }} align-self-start">
+              {{ item.item_type|capitalize }}
+            </span>
+            <div class="mt-4">
+              <a href="{{ url_for('home') }}" class="btn btn-outline-primary rounded-pill">Back to Home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

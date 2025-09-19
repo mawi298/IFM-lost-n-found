@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IFM Lost & Found{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #fff; 
+            color: #1a1a1a; 
+            margin-bottom: 60px; 
+        }
+
+        :root {
+            --primary-color: oklch(0.46 0.12 258.68);
+            --primary-hover: oklch(0.42 0.12 258.68);
+            --button-bg: #fff;
+            --button-hover: var(--primary-color);
+            --button-text: var(--primary-color);
+            --button-text-hover: #fff;
+        }
+
+        /* Navbar */
+        .navbar { background-color: var(--primary-color); }
+        .navbar-brand { color: #fff; font-weight: 600; }
+        .navbar-toggler { border-color: rgba(255, 255, 255, 0.2); }
+
+        /* Material-style buttons for nav */
+        .nav-btn {
+            display: inline-block;
+            font-weight: 600;
+            color: var(--button-text);
+            background-color: var(--button-bg);
+            border: none;
+            border-radius: 25px;
+            padding: 0.4rem 1.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none; /* remove underline */
+            max-width: 200px;
+            width: auto;
+        }
+        .nav-btn:hover {
+            background-color: var(--button-hover);
+            color: var(--button-text-hover);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Navbar spacing */
+        .navbar .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;  /* left align on mobile */
+            gap: 10px;
+        }
+        @media (min-width: 992px) {
+            .navbar .nav-container {
+                flex-direction: row;
+                gap: 15px;
+                align-items: center;   /* center vertically on desktop */
+            }
+        }
+
+        /* Search Bar Styling */
+        .search-bar {
+            margin: 20px auto;
+            max-width: 700px;
+        }
+        .search-bar .form-control {
+            border-radius: 25px 0 0 25px;
+        }
+        .search-bar .btn {
+            border-radius: 0 25px 25px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+            padding: 0.5rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="40" height="40" class="me-2">
+                IFM Lost 'n' Found
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="ms-auto nav-container mt-3 mt-lg-0">
+                    <a class="nav-btn" href="{{ url_for('home') }}">Home</a>
+                    <a class="nav-btn" href="{{ url_for('report_lost') }}">Add Lost</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-bar container">
+        <form class="d-flex w-100" action="{{ url_for('search') }}" method="GET">
+            <input class="form-control flex-grow-1" type="search" placeholder="Search items..." aria-label="Search" name="q">
+            <button class="btn btn-primary ms-2" type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="container my-5 flex-grow-1">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        © 2025 The Institute Of Finance Management
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

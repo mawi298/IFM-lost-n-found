@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="main-content-margin">
+  <div class="container mt-4">
+    <h2 class="fw-bold text-primary mb-4 text-center">Search Results for "{{ query }}"</h2>
+
+    {% if items %}
+        <div class="row justify-content-center">
+            {% for item in items %}
+            <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+                <div class="card mb-4 shadow-sm border-0 rounded-4 w-100">
+                    {% if item.image_filename %}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#imgModal{{ loop.index }}">
+                          <img src="{{ url_for('static', filename='uploads/' ~ item.image_filename) }}"
+                               class="card-img-top rounded-top" alt="Item photo" style="object-fit:cover; height:220px; cursor:zoom-in;">
+                        </a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="imgModal{{ loop.index }}" tabindex="-1" aria-labelledby="imgModalLabel{{ loop.index }}" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="imgModalLabel{{ loop.index }}">{{ item.title }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-center">
+                                <img src="{{ url_for('static', filename='uploads/' ~ item.image_filename) }}" alt="Item Photo" class="img-fluid rounded" style="max-width:100%; height:auto; object-fit:unset;">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-semibold text-primary">{{ item.title }}</h5>
+                        <p class="card-text text-muted mb-2">{{ item.description }}</p>
+                        <p class="mb-1"><strong>Contact:</strong> {{ item.contact }}</p>
+                        <p class="mb-1"><strong>Location:</strong> {{ item.location }}</p>
+                        <p class="mb-2"><strong>Date:</strong> {{ item.date_lost_found }}</p>
+                        <span class="badge px-3 py-2 rounded-pill bg-{{ 'danger' if item.item_type == 'lost' else 'success' }} align-self-start">
+                            {{ item.item_type|capitalize }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <div class="display-6 text-muted mb-3">
+                <i class="bi bi-search"></i>
+            </div>
+            <p class="lead text-secondary">No items found matching your search.</p>
+        </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
